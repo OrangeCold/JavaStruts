@@ -13,22 +13,20 @@ public class MapTitle {
     /**
      * 批量推送数据
      */
+    @Test
     public void pushData(){
         List<Integer> list = new ArrayList<>(16);
         list.add(1);
         list.add(2);
         list.add(3);
 
-        // 数据总量
         int size = list.size();
-        // 每次推送的数据量
         int pushNum = 2;
-
         List<Integer> container = new ArrayList<>(16);
-        for (int i = 0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             container.add(list.get(i));
             if (container.size()==pushNum || (i+1)==size){
-                System.out.println("pushData");
+                System.out.println("pushData:"+container.toString());
                 container.clear();
             }
         }
