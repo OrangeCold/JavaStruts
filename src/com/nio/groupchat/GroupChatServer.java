@@ -93,7 +93,7 @@ public class GroupChatServer {
             //若发生异常，说明读不到数据
             try {
                 System.out.println(channel.getRemoteAddress() + " 离线了");
-                key.channel();
+                key.cancel();
                 channel.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
