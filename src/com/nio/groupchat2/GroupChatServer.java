@@ -99,4 +99,9 @@ public class GroupChatServer {
         }
     }
 
+    public static void main(String[] args) {
+        GroupChatServer groupChatServer = new GroupChatServer();
+        groupChatServer.listen();
+    }
+
 }
