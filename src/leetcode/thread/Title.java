@@ -1,6 +1,7 @@
 package leetcode.thread;
 
 import leetcode.thread.entity.Foo;
+import leetcode.thread.entity.FooBar;
 
 /**
  * @author chenzihan
@@ -33,10 +34,35 @@ public class Title {
         });
     }
 
+    /**
+     * FooBar
+     */
+    private void printFooBar(int count) throws InterruptedException {
+        FooBar fooBar = new FooBar(count);
+        fooBar.foo(new Runnable() {
+            @Override
+            public void run() {
+                System.out.print("foo");
+            }
+        });
+        fooBar.bar(new Runnable() {
+            @Override
+            public void run() {
+                System.out.print("bar");
+            }
+        });
+
+    }
+
     public static void main(String[] args) {
         Title title = new Title();
+//        try {
+//            title.printSunxv();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         try {
-            title.printSunxv();
+            title.printFooBar(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

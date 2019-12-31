@@ -5,37 +5,49 @@ package leetcode.thread.entity;
  * @date 2019-12-31 16:37
  */
 public class FooBar {
-    private int n;
+    private volatile int n;
 
     private volatile boolean canFoo;
-    private volatile boolean canBar;
 
     public FooBar(int n) {
         this.n = n;
-        this.canBar = false;
-        this.canFoo = false;
+        this.canFoo = true;
     }
 
     public void foo(Runnable printFoo) throws InterruptedException {
 
-        for (int i = 0; i < n; i++) {
-            synchronized (this){
-                while (!canFoo){
+        synchronized (this){
+            for (int i = 0; i < n; i++) {
+                if (!canFoo) {
                     this.wait();
                 }
+                // printFoo.run() outputs "foo". Do not change or remove this line.
+                printFoo.run();
+                canFoo = false;
+                this.notifyAll();
             }
-            // printFoo.run() outputs "foo". Do not change or remove this line.
-            printFoo.run();
 
         }
+
     }
 
     public void bar(Runnable printBar) throws InterruptedException {
 
-        for (int i = 0; i < n; i++) {
+        synchronized (this){
 
-            // printBar.run() outputs "bar". Do not change or remove this line.
-            printBar.run();
+            for (int i = 0; i < n; i++) {
+
+                if (canFoo){
+                    this.wait();
+                }
+
+                // printBar.run() outputs "bar". Do not change or remove this line.
+                printBar.run();
+                canFoo = true;
+                this.notifyAll();
+
+            }
         }
+
     }
 }
