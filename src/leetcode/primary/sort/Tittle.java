@@ -23,36 +23,49 @@ public class Tittle {
      * 三数之和
      */
     public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<>();
 
         int length = nums.length;
 
         if (length < 3){
-            return null;
+            return result;
         }
 
         int l = 0;
         int r = length-1;
 
-        boolean addL = true;
-
         while ((r-l)>1){
-            for (int i = l+1; i < r; i++) {
-                if ((nums[l] + nums[i] + nums[r]) ==0){
-                    List<Integer> row = new ArrayList<>();
-                    row.add(nums[l]);
-                    row.add(nums[i]);
-                    row.add(nums[r]);
-                    result.add(row);
+            for (int i = r; i < 0; i--) {
+                for (int j = l+1; j < i; j++) {
+                    if ((nums[l]+nums[j]+nums[i]) == 0){
+                        List<Integer> row = new ArrayList<>();
+                        row.add(nums[l]);
+                        row.add(nums[j]);
+                        row.add(nums[i]);
+                        if (!result.contains(row)){
+                            result.add(row);
+                        }
+                    }
+                    
                 }
             }
-            if (addL){
-                l++;
-                addL = false;
-            }else {
-                r--;
-                addL = true;
+
+            for (int i = 0; i < r; i++) {
+                for (int j = i+1; j < r; j++) {
+                    if ((nums[i]+nums[j]+nums[r]) == 0){
+                        List<Integer> row = new ArrayList<>();
+                        row.add(nums[i]);
+                        row.add(nums[j]);
+                        row.add(nums[r]);
+                        if (!result.contains(row)){
+                            result.add(row);
+                        }
+                    }
+                }
             }
+            l++;
+            r--;
         }
 
         return result;
