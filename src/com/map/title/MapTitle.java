@@ -11,6 +11,22 @@ import java.util.*;
 public class MapTitle {
 
     /**
+     * 遍历方式对比
+     */
+    @Test
+    public void blMap(){
+        Map<String,String> map = new HashMap<>();
+        map.put("1","mike");
+        map.put("2","sale");
+
+        Set<Map.Entry<String, String>> entries = map.entrySet();
+        for(Map.Entry<String,String> entry : entries){
+            String value = entry.getValue();
+            String key = entry.getKey();
+        }
+    }
+
+    /**
      * 批量推送数据
      */
     @Test
